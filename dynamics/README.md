@@ -12,6 +12,10 @@ m = 0.1 \quad\quad k = 5 \quad\quad y_0 = 0.6 \quad\quad v_0 = -1 \quad\quad b =
 $$
 
 - Natural frequencies | [1dof.bdf](1dof/1dof.bdf) 
+$$ 
+w = \sqrt(k/m)
+$$
+
 - Undamped Free vibration | [1dof-free.bdf](1dof/1dof-free.bdf) 
 - Damped free vibration | [1dof-damped.bdf](1dof/1dof-damped.bdf) 
 - Damped forced vibration 
