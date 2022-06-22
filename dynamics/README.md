@@ -22,5 +22,8 @@ $$
 ![Free vibration](1dof/1dof-free.png)
 
 - Damped free vibration | [1dof-damped.bdf](1dof/1dof-damped.bdf) 
+
+![Free vibration](1dof/1dof-damped.png)
+
 - Damped forced vibration 
     * [timeLoad.py](1dof/timeLoad.py): Script to generate the sinusoidal model
