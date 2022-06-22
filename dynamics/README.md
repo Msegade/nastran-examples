@@ -18,6 +18,9 @@ w_n = \sqrt{\frac{k}{m}} = 7.07
 $$
 
 - Undamped Free vibration | [1dof-free.bdf](1dof/1dof-free.bdf) 
+
+![Free vibration](1dof/1dof-free.png)
+
 - Damped free vibration | [1dof-damped.bdf](1dof/1dof-damped.bdf) 
 - Damped forced vibration 
     * [timeLoad.py](1dof/timeLoad.py): Script to generate the sinusoidal model
