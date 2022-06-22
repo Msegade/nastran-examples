@@ -7,22 +7,22 @@ tstep = 888
 ic = 777
 displacement(plot) = all
 
-$  XYPLOTS
-OUTPUT(XYPLOT)
-XGRID = YES
-YGRID = YES                                                                                                                                                                                
-XTITLE = TIME
-YMAX = 0.8
-YMIN = -0.8
-YTITLE = DISP. GRID 2
-XYPLOT DISP /2(T2)
+$$  XYPLOTS
+$OUTPUT(XYPLOT)
+$XGRID = YES
+$YGRID = YES                                                                                                                                                                                
+$XTITLE = TIME
+$YMAX = 0.8
+$YMIN = -0.8
+$YTITLE = DISP. GRID 2
+$XYPLOT DISP /2(T2)
 
 BEGIN BULK
 param, post, -1
 param, w4, 1.0
 
 tic, 777,  2, 2, 0.6
-tstep, 888,  1000, 0.01, 1
+tstep, 888, 10000, 0.01, 1
 
 GRID, 1,, 0., 0., 0.
 GRID, 2,, 0., 0., 0.
