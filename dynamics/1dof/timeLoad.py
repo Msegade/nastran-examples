@@ -13,10 +13,11 @@ tstep = bdf.tsteps[888]
 dt = tstep.DT[0]
 n = tstep.N[0]
 
-#w = 3.4*(2*np.pi)
-w = 3.4
+
+w = 3.4 # rad/s
+P = 0.7 # load amplitude
 x = np.linspace(0.0, dt*n, n)
-y = 0.7*np.sin(w*x)
+y = P*np.sin(w*x)
 
 bdf.add_tabled1(444, x, y)
 
