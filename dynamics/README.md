@@ -7,7 +7,7 @@
 
 $$ 
 \begin{equation}
-m = 0.1 \quad\quad k = 5 \quad\quad y_0 = 0.6 \quad\quad b = 0.1
+m = 0.1 \quad\quad k = 5 \quad\quad u_0 = 0.6 \quad\quad b = 0.1
 \end{equation}
 $$
 
