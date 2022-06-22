@@ -2,7 +2,7 @@ from pyNastran.bdf.bdf import BDF
 import numpy as np
 
 bdf = BDF()
-bdf.read_bdf('1dof-damping.bdf')
+bdf.read_bdf('1dof-damped.bdf')
 
 sub = bdf.subcases[0]
 sub.add('DLOAD', 111, [], 'STRESS-type')
@@ -20,4 +20,4 @@ y = 0.7*np.sin(w*x)
 
 bdf.add_tabled1(444, x, y)
 
-bdf.write_bdf('1dof-loading.bdf')
+bdf.write_bdf('1dof-load.bdf')
