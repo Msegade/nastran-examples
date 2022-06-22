@@ -1,6 +1,5 @@
 # Nastran Examples
 
-* Dynamics
-* Optimization
-* Aeroelasticity
-* Non-Linear
+ - [Optimization](optimization)               
+ - [Dynamics](dynamics)                       
+ - [Aeroelasticity](aeroelasticity)           
