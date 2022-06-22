@@ -26,7 +26,6 @@ tstep, 888,  1000, 0.01, 1
 GRID, 1,, 0., 0., 0.
 GRID, 2,, 0., 0., 0.
 
-$ Damping coefficent 2*ratio???
 celas2, 1, 5.0, 1, 2,2,2, 0.0
 
 CONM2,2,2,,0.1
