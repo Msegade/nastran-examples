@@ -11,7 +11,8 @@ m = 0.1 \quad\quad k = 5 \quad\quad y_0 = 0.6 \quad\quad v_0 = -1 \quad\quad b =
 \end{equation}
 $$
 
-- Undamped Free vibration | [1dof.bdf](1dof/1dof.bdf) 
+- Natural frequencies | [1dof.bdf](1dof/1dof.bdf) 
+- Undamped Free vibration | [1dof.bdf](1dof/1dof-free.bdf) 
 - Damped free vibration | [1dof-damped.bdf](1dof/1dof-damped.bdf) 
 - Damped forced vibration 
     * [timeLoad.py](1dof/timeLoad.py): Script to generate the sinusoidal model
