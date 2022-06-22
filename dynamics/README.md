@@ -14,7 +14,7 @@ $$
 - Natural frequencies | [1dof.bdf](1dof/1dof.bdf) 
 
 $$ 
-w = \sqrt(k/m)
+w = \sqrt{\frac{k}{m}}
 $$
 
 - Undamped Free vibration | [1dof-free.bdf](1dof/1dof-free.bdf) 
