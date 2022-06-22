@@ -27,3 +27,5 @@ $$
 
 - Damped forced vibration 
     * [timeLoad.py](1dof/timeLoad.py): Script to generate the sinusoidal model
+
+![Free vibration](1dof/1dof-load.png)
