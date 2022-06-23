@@ -1,0 +1,47 @@
+SOL 200
+CEND
+
+analysis = statics
+DSAPRT(FORMATTED, EXPORT, END=SENS) = ALL
+DESSUB  = 200
+SPC     = 1
+LOAD    = 1
+
+BEGIN BULK
+
+DESVAR     101  x1      1e-6    1e-8
+DESVAR     102  x2      1e-5    1e-8
+DESVAR     103  x3      1e-4    1e-8
+
+DCONSTR    200      200  0.0
+DCONSTR    200      201  0.0
+DCONSTR    200      202  0.0
+
+DRESP2     200  R1      30
+        DESVAR     101  
+DRESP2     201  R2      30
+        DESVAR     102  
+DRESP2     202  R3      30
+        DESVAR     103  
+
+DSCREEN EQUA    -1000.0   3
+
+DEQATN   30
+        s(x)= 1.0/(1.0+exp(-5.0*(log10(x)+5.0)))
+
+DOPTPRM DESMAX  40      P1      1       P2      15      
+
+$ DUMMY STRUCTURAL MODEL (NOT USED)
+DVPREL1 1       PROD    1       A                               
+           101  1.0     
+FORCE   1       2               1.0E7   1.0     0.0     0.0
+GRID    1               0.0     0.0     0.0
+GRID    2               1.0     0.0     0.0
+CROD    1       1       1       2
+MAT1    1       1.0E7           0.3     0.1
+PROD    1       1       3.0
+SPC1    1       23456   2
+SPC1    1       123456  1
+PCOMP    1                      13000.   HILL
+        1       .01      3.     YES     1       .01      4.     YES
+ENDDATA
