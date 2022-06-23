@@ -26,13 +26,13 @@ $$
 ![Damped vibration](1dof/1dof-damped.png)
 
 - Undamped forced vibration. 10 second duration to see the pattern
-    * [1dof-load.bdf](1dof/1dof-load.bdf): Script to generate the sinusoidal model
+    * [1dof-load.bdf](1dof/1dof-load.bdf): Main input file
     * [timeLoad.py](1dof/timeLoad.py): Script to generate the sinusoidal model
 
 ![Undamped forced vibration](1dof/1dof-undamped-load.png)
 
 - Damped forced vibration 
-    * [1dof-load-damped.bdf](1dof/1dof-load-damped.bdf): Script to generate the sinusoidal model
+    * [1dof-load-damped.bdf](1dof/1dof-load-damped.bdf): Main input file
     * [timeLoad.py](1dof/timeLoad.py): Script to generate the sinusoidal model
 
 ![Damped forced vibration](1dof/1dof-load.png)
