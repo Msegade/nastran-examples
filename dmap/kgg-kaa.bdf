@@ -1,0 +1,20 @@
+init master(s)
+sol 101
+diag 5,6,8,56
+compile sestatic, list
+alter 'call.*phase1dr.*kgg.*kaa'
+matprn KGG
+matprn KAA
+message // 'Hello World' 
+endalter
+cend
+load 101
+begin bulk
+grid, 1,,0.0, 0.0,0.0,,123456
+grid, 2,,10.0, 0.0,0.0,,
+cbar,1,10,1,2,0.0,1.0,0.0
+pbarl,10,100,,BAR
++,.2,.3
+mat1,100, 10.0e6,,.3, 2.588e-4
+force 101,2,,10.0,0.0,1.0,0.0
+enddata
