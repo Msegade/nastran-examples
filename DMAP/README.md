@@ -3,6 +3,8 @@
 ## List subdmaps
 
 - Basic sol1 model, list all sequence| [sol1-list.bdf](sol1-list.bdf)
+- Find location of matrices on the sequence | [sol1-findLocation.bdf](sol1-findLocation.bdf)
+- Save solution matrices in op4 format | [sol1-matrices.bdf](sol1-matrices.bdf)
 
 ## Print KGG and KAA Matrices
 
