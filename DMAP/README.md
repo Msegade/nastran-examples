@@ -1,5 +1,9 @@
 # DMAP
 
+## List subdmaps
+
+- Basic sol1 model, list all sequence| [sol1-list.bdf](sol1-list.bdf)
+
 ## Print KGG and KAA Matrices
 
 Cantilever beam modeled with PBARL, L = 10m, E = 10e6, h = 0.3, b = 0.2

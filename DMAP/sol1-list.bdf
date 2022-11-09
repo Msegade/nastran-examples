@@ -1,0 +1,15 @@
+init master(s)
+sol 1
+compiler, list, nogo, nosort
+cend
+load 101
+begin bulk
+param, extout, dmigpch
+grid, 1,,0.0, 0.0,0.0,,123456
+grid, 2,,10.0, 0.0,0.0,,
+cbar,1,10,1,2,0.0,1.0,0.0
+pbarl,10,100,,BAR
++,.2,.3
+mat1,100, 10.0e6,,.3, 2.588e-4
+force 101,2,,10.0,0.0,1.0,0.0
+enddata
