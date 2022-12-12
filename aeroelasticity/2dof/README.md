@@ -23,6 +23,7 @@ Airfoil properties:
 For this model, the center of mass has to be modeled with another grid point and 
 joined to the elastic axis using a RBAR element. A CONM2 is located a the center of mass, and the 
 moment of inertia is calculated through:
+
 $$
 i_{c.g} = i_{\theta} - m(b x_{\theta})^2 = 2.9046 \text{slug-ft}^2
 $$
