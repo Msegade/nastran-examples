@@ -1,0 +1,27 @@
+SOL  103
+CEND
+  ECHO    = NONE
+  METHOD  = 20    
+  SVEC    = ALL  
+BEGIN BULK
+$ Center line elastic axis free to plunge and pitch
+GRID    100             0.      0.5     0.              1246
+GRID    101             -0.3    0.5     0.              
+$GRID    101             0.      1.0     0.
+$                                                                       $
+RBAR    101     100     101     123456
+$ G2 blank refers to ground
+$       EID     K       G1      C1      G2      C2      GE      S
+CELAS2  103     134.47  100     3       
+CELAS2  105     1891.   100     5
+                                                                       $
+$       EID     G       CID     M       M21     M22     M31     M32
+CONM2   110     101             1.3447                                  +CNM1
+$       I11     I21     I22     I31     I32     I33     
+$+CNM1                   3.146623
++CNM1                   2.904577
+
+
+eigrl, 20,,,2 
+$
+ENDDATA

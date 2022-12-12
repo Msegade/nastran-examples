@@ -1,0 +1,338 @@
+$ DEC/CMS REPLACEMENT HISTORY, Element HA145A.DAT
+$ *1     5-JUL-1994 16:54:03 A_BOYADJIAN "68 PLUS/G/ NEW FOR V68 AERO_SS BOOK"
+$ DEC/CMS REPLACEMENT HISTORY, Element HA145A.DAT
+ID MSC, HA145A $ E_JOHNSON V68  5-JUL-1994
+$ Modified 30-May-2003 v2003 John Ausman
+$ID MSC, HA145A
+$$$$$$$$    HANDBOOK FOR AEROELASTIC ANALYSIS EXAMPLE HA145A    $$$$$$$$
+$                                                                      $
+$       MODEL DESCRIPTION       A TWO-DIMENSIONAL AIRFOIL IDEALIZED    $
+$                               AS A SINGLE STRIP WITH A UNIT WIDTH,   $
+$                               A MASS AT MID-SPAN WITH FREEDOM TO     $
+$                               MOVE VERTICALLY RELATIVE TO A DUMB-    $
+$                               BELL AT MID-SPAN WITH A DISPLACEMENT   $
+$                               SPRING BETWEEN THEM.  THE DUMBBELL     $
+$                               IS ATTACHED BY A TORSION SPRING TO     $
+$                               GROUND.  THIS RESULTS IN ONE RIGID     $
+$                               BODY AND TWO FLEXIBLE DEGREES OF       $
+$                               FREEDOM.  THIS EXAMPLE HAS BEEN        $
+$                               PUBLISHED IN THE JOURNAL OF AIRCRAFT,  $
+$                               SEPT. 1982, PP. 796-797.               $
+$                                                                      $
+$       SOLUTION                PK FLUTTER ANALYSIS METHOD USING       $
+$                               STRIP THEORY AERODYNAMICS WITH THE     $
+$                               W.P.JONES APPROXIMATION TO THE         $
+$                               THEODORSEN CIRCULATION FUNCTION.       $
+$                                                                      $
+$       OUTPUT                  DISPLACEMENTS, AERODYNAMIC FORCES      $
+$                               AND X-Y PLOTS OF V-G FLUTTER DATA      $
+$                                                                      $
+$$$$$$$                                                         $$$$$$$$
+TIME  5 $ TIME IN CPU MINUTES
+SOL  145 $ FLUTTER ANALYSIS
+CEND
+TITLE = EXAMPLE HA145A: THREE DEGREE OF FREEDOM AEROELASTIC MO HA145A
+SUBTI = 2-D AERO, W.P. JONES C(K) WITH PK- AND K- FLUTTER METHODS
+$SUBTI = 2-D AERO, EXACT C(K) WITH PK- AND K- FLUTTER METHODS
+LABEL = ONE RIGID BODY AND TWO FLEXIBLE MODES, C.G. AT 0.37 CHORD
+$LABEL = ONE RIGID BODY AND TWO FLEXIBLE MODES, C.G. AT 0.45 CHORD
+  ECHO    = BOTH
+  METHOD  = 1    $ MODIFIED GIVENS EIGENVALUE METHOD
+  SVEC    = ALL  $ PRINT THE VIBRATION MODES
+  DISP    = ALL  $ PRINT THE FLUTTER MODES
+SUBCASE 1
+  FMETHOD = 3    $ PK FLUTTER METHOD
+SUBCASE 2
+  FMETHOD = 4    $ K FLUTTER METHOD
+  CMETHOD = 20
+OUTPUT(XYOUT)
+  CSCALE 2.0
+  PLOTTER NASTRAN
+  CURVELINESYMBOL = -6
+  YTTITLE = DAMPING  G
+  YBTITLE = FREQUENCY  F  Hz
+  XTITLE  = VELOCITY  V (ft/sec)
+  XTGRID LINES = YES
+  XBGRID LINES = YES
+  YTGRID LINES = YES
+  YBGRID LINES = YES
+  UPPER TICS  = -1
+  TRIGHT TICS = -1
+  BRIGHT TICS = -1
+  XYPLOT VG / 1(G,F) 2(G,F) 3(G,F)
+BEGIN BULK
+$*** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ***$
+$                                                                       $
+$        THE ANNOTATIONS IN THIS INPUT DECK ARE INTENDED TO             $
+$        EXPLAIN THE DATA ON THE ENTRY IMAGES FOR THIS SPECIFIC         $
+$        EXAMPLE WITHOUT REFERENCE TO THE VARIOUS MANUALS WHERE         $
+$        MORE GENERAL DESCRIPTIONS WILL BE FOUND.                       $
+$                                                                       $
+$*** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ***$
+$                                                                       $
+$                       * * * STRUCTURAL DATA * * *                     $
+$                                                                       $
+$                            (LB-FT-SEC SYSTEM)                         $
+$                                                                       $
+$                          * * GRID GEOMETRY * *                        $
+$                                                                       $
+$        GRID  102     (T3)  SIMULATED FUSELAGE POINT                   $
+$        GRID  100-101 (T3)  WING POINTS                                $
+$                                                                       $
+$        THE GRID ENTRY DEFINES THE LOCATION OF A STRUCTURAL GRID       $
+$        POINT.  LISTED ARE ITS COORDINATE SYSTEM ID, ITS LOCATION,     $
+$        THE ID OF THE COORDINATE SYSTEM IN WHICH ITS DISPLACEMENTS     $
+$        ARE DEFINED, ITS PERMANENT SINGLE-POINT CONSTRAINTS AND        $
+$        ITS ASSOCIATED SUPERELEMENT ID.                                $
+$                                                                       $
+$       ID      CP      X1      X2      X3      CD      PS      SEID
+GRID    100             0.      0.5     0.              1246
+GRID    101             0.      1.0     0.
+GRID    102             0.      0.5     0.              12456
+$                                                                       $
+$                  * * STRUCTURAL STIFFNESS PROPERTIES * *              $
+$                                                                       $
+$                      * SPRING MOUNTING DATA *                         $
+$                                                                       $
+$        THE CELAS2 ENTRY DEFINES A SCALAR SPRING ELEMENT WITHOUT       $
+$        REFERENCE TO A PROPERTY ENTRY, IN THIS CASE K IS THE SPRING    $
+$        CONSTANT, G1 AND G2 ARE JOINED BY THE SPRING (DEFAULT IS       $
+$        TO GROUND), C1 AND C2 ARE THE DOFS AT THESE POINTS, GE IS      $
+$        THE DAMPING COEFFICIENT AND S IS THE STRESS COEFFICIENT.       $
+$        POINT 102 MOVES RELATIVE TO POINT 100 LIKE A PISTON MOVES      $
+$        IN A CYLINDER.                                                 $
+$                                                                       $
+$       EID     K       G1      C1      G2      C2      GE      S
+CELAS2  103     134.47  100     3       102     3
+CELAS2  105     1891.   100     5
+$                                                                       $
+$        THE RBAR ENTRY DEFINES A RIGID BAR.  LISTED ARE THE GRID       $
+$        POINTS AT EACH END AND THE DEPENDENT AND INDEPENDENT DOFS      $
+$        AT EACH END.  THE NUMBER OF INDEPENDENT DOFS AT THE TWO        $
+$        ENDS MUST EQUAL SIX.  BY DEFAULT THOSE NOT DECLARED INDE-      $
+$        PENDENT ARE MADE DEPENDENT.                                    $
+$                                                                       $
+$       EID     GA      GB      CNA     CNB     CMA     CMB
+RBAR    101     100     101     123456
+$                                                                       $
+$                   * * MASS AND INERTIA PROPERTIES * *                 $
+$                                                                       $
+$        THE CMASS2 ENTRY DEFINES A SCALAR MASS ELEMENT WITHOUT         $
+$        REFERENCE TO A PROPERTY ENTRY.  IT LISTS THE MASS, THE         $
+$        GRID NO. AND ITS DOF COMPONENTS.  WHEN TWO GRID POINTS         $
+$        ARE LISTED THE MASS IS ADDED TO BOTH POINTS.                   $
+$                                                                       $
+$                           * FUSELAGE MASS *                           $
+$                                                                       $
+$       EID     M       G1      C1      G2      C2
+CMASS2  111     1.3447  102     3
+$                                                                       $
+$        THE CONM1 ENTRY DEFINES A 6 BY 6 SYMMETRIC INERTIA MATRIX      $
+$        FOR A GRID POINT.  LISTED IS THE ID, THE GRID POINT NO.,       $
+$        THE COORDINATE SYSTEM IN WHICH THE INERTIA MATRIX IS           $
+$        DEFINED AND THE LOWER LEFT TRIANGULAR PART OF THE MATRIX.      $
+$                                                                       $
+$                              * WING MASS *                            $
+$                                                                       $
+$       EID     G       CID     M11     M21     M22     M31     M32
+CONM1   110     100                                                     +CNM1
+$ ELASTIC AXIS AT 37 PERCENT CHORD
+$       M33     M41     M42     M43     M44     M51     M52     M53
++CNM1   1.3447                                                  0.24205 +CNM1A
+$       M54     M55     M61     M62     M63     M64     M65     M66
++CNM1A          3.0256
+$                                  * * *                                $
+$ ELASTIC AXIS AT 45 PERCENT CHORD
+$       M33     M41     M42     M43     M44     M51     M52     M53
+$+CNM1  1.3447                                                  -.40342 +CNM1A
+$                                  * * *                                $
+$                                                                       $
+$                                                                       $
+$        THE CDAMP2 ENTRY DEFINES A SCALAR DAMPER ELEMENT WITHOUT REF-  $
+$        ERENCE TO A PROPERTY ENTRY.  B IS THE DAMPER CONSTANT, G1 AND  $
+$        G2 ARE THE GRID POINTS TO WHICH THE DAMPER IS ATTACHED AND     $
+$        C1 AND C2 ARE THE DOF COMPONENTS IN WHICH THEY MOVE.           $
+$                                                                       $
+$       EID     B       G1      C1      G2      C2
+CDAMP2  123     .40341  100     3       102     3
+CDAMP2  125     2.2692  100     5
+$                                                                       $
+$                                                                       $
+$                     * * * AERODYNAMIC DATA * * *                      $
+$                                                                       $
+$                          (LB-FT-SEC SYSTEM)                           $
+$                                                                       $
+$                       * * ELEMENT GEOMETRY * *                        $
+$                                                                       $
+$        THE AERO ENTRY SPECIFIES THE AERO COORDINATE SYSTEM, THE       $
+$        REFERENCE LENGTHS PLUS SYMMETRY KEYS.  SYMXZ = 0 INDICATES     $
+$        THAT THE MODEL IS MOUNTED WITH NO ROOT REFLECTION PLANE;       $
+$        SYMXY = 0 INDICATES THAT THE MODEL IS MOUNTED FAR ENOUGH       $
+$        FROM THE FLOOR SO THAT REFLECTION EFFECTS ARE NEGLIGIBLE.      $
+$                                                                       $
+$       ACSID   VELOCITY REFC   RHOREF  SYMXZ   SYMXY
+AERO            100.    6.      .002378 0       0
+$                                                                       $
+$               * * SPLINE FIT ON THE LIFTING SURFACES * *              $
+$                                                                       $
+$                    * BEAM SPLINE FIT ON THE WING *                    $
+$                                                                       $
+$        THE SPLINE2 ENTRY SPECIFIES A BEAM SPLINE FOR INTERPOLAT-      $
+$        ION OVER THE REGION OF THE CAERO ENTRY (ID1 AND ID2 ARE        $
+$        THE FIRST AND LAST BOXES IN THIS REGION).  SETG REFERS         $
+$        TO A SET1 ENTRY WHERE THE STRUCTURAL GRID POINTS ARE           $
+$        DEFINED.  DZ AND DTOR ARE SMOOTHING CONSTANTS FOR LINEAR       $
+$        ATTACHMENT AND TORSIONAL FLEXIBILITIES.  DTHX AND DTHY         $
+$        ARE ROTATIONAL ATTACHMENT FLEXIBILITIES. CID IDENTIFIES        $
+$        THE SPLINE COORDINATE SYSTEM AND ITS AXIS.                     $
+$                                                                       $
+$       EID     CAERO   ID1     ID2     SETG    DZ      DTOR    CID
+SPLINE2 1201    1000    1000    1000    1100    0.      1.      0       +SP2
+$       DTHX    DTHY
++SP2    0.      0.
+$                                                                       $
+$        THE SET1 ENTRY DEFINES THE SETS OF STRUCTURAL GRID POINTS      $
+$        TO BE USED BY THE BEAM SPLINE FOR INTERPOLATION.               $
+$                                                                       $
+$       SID     G1      G2      G3      ETC
+SET1    1100    100     101
+$                                                                       $
+$        THE CAERO4 ENTRY IS USED TO SPECIFY STRIP THEORY AERO.         $
+$        PID IDENTIFIES A PAERO4 ENTRY WHERE THE ELEMENT PROPERTIES     $
+$        ARE GIVEN, CP DEFAULTS TO THE BASIC COORDINATE SYSTEM,         $
+$        NSPAN IS THE NUMBER OF EQUAL SPAN STRIPS (IF UNEQUAL,          $
+$        LSPAN WOULD SPECIFY AN AEFACT ENTRY THAT WOULD DEFINE THE      $
+$        STRIPS WIDTHS).  THE CONTINUATION ENTRY DEFINES THE INBD       $
+$        AND OUTBD LEADING EDGE POINTS AND THE CHORDS.                  $
+$                                                                       $
+$       EID     PID     CP      NSPAN   LSPAN
+CAERO4  1000    1000            1                                       +CA1
+$       X1      Y1      Z1      X12     X4      Y4      Z4      X43
++CA1    -2.4    0.      0.      6.      -2.4    1.      0.      6.
+$                                                                       $
+$        THE PAERO4 ENTRY DEFINES PROPERTIES OF THE STRIP ELEMENTS      $
+$        FOR STRIP THEORY AERODYNAMICS.  IT OFFERS A WIDE VARIETY       $
+$        OF OPTIONS.  CLA DEFAULTS TO NO COMPRESSIBILITY CORRECTION     $
+$        AND NO CORRECTIONS OF LIFT CURVE SLOPES.  LCLA MUST BE ZERO    $
+$        WHEN CLA IS ZERO.  CIRC=0 SPECIFIES THE EXACT EXPRESSION FOR   $
+$        THE THEODORSEN CIRCULATION FUNCTION.  DOC, CAOC AND GAPOC      $
+$        ARE REQUIRED EVEN THOUGH THE STRIP HAS NO CONTROL SURFACE.     $
+$        IN FRACTIONS OF CHORD THESE ARE THE DISTANCE FROM THE QUARTER  $
+$        CHORD TO THE HINGE LINE, THE CONTROL SURFACE CHORD AND THE     $
+$        GAP BETWEEN THE PRIMARY SURFACE AND THE CONTROL SURFACE.       $
+$        CAOC1=0. SPECIFIES NO CONTROL SURFACE.                         $
+$                                                                       $
+$       PID     CLA     LCLA    CIRC    LCIRC   DOC1    CAOC1   GAPOC1  +PAER
+PAERO4  1000    0       0       2       13      0.      0.      0.
+$                                                                       $
+$        THIS AEFACT ENTRY AND ITS CONTINUATION CONTAIN SIX FIELDS      $
+$        FOR EACH MACH NO. ON THE MKAERO ENTRY; THE MACH NO. AND FIVE   $
+$        CONSTANTS USED TO APPROXIMATE THEODORSENS CIRCULATION FUNC-    $
+$        TION.  IN THIS CASE THE APPROXIMATION OF W.P. JONES IS USED    $
+$        AT MACH NO. 0.0.                                               $
+$                                                                       $
+$       SID     D1      D2      D3      ETC
+AEFACT  13      0.0     1.0     -0.165  0.041   -0.335  0.320
+$                                                                       $
+$        THE PAERO4 ENTRY DEFINES PROPERTIES OF THE STRIP ELEMENTS      $
+$        FOR STRIP THEORY AERODYNAMICS.  IT OFFERS A WIDE VARIETY       $
+$        OF OPTIONS.  CLA DEFAULTS TO NO COMPRESSIBILITY CORRECTION     $
+$        AND NO CORRECTIONS OF LIFT CURVE SLOPES.  LCLA MUST BE ZERO    $
+$        WHEN CLA IS ZERO.  CIRC=0 SPECIFIES THE EXACT EXPRESSION FOR   $
+$        THE THEODORSEN CIRCULATION FUNCTION.  DOC, CAOC AND GAPOC      $
+$        ARE REQUIRED EVEN THOUGH THE STRIP HAS NO CONTROL SURFACE.     $
+$        IN FRACTIONS OF CHORD THESE ARE THE DISTANCE FROM THE QUARTER  $
+$        CHORD TO THE HINGE LINE, THE CONTROL SURFACE CHORD AND THE     $
+$        GAP BETWEEN THE PRIMARY SURFACE AND THE CONTROL SURFACE.       $
+$        CAOC1=0. SPECIFIES NO CONTROL SURFACE.                         $
+$                                                                       $
+$        AN ALTERNATE METHOD WOULD BE TO SET CIRC=0 TO SPECIFY THE      $
+$        EXACT EXPRESSION FOR THE THEODORSEN CIRCULATION FUNCTION       $
+$        (SEE EXAMPLE HA75BAHK).                                        $
+$                                                                       $
+$       PID     CLA     LCLA    CIRC    LCIRC   DOC1    CAOC1   GAPOC1  +PAER
+$PAERO4 1000    0       0       0       0       0.      0.      0.
+$                                                                       $
+$                  * * * SOLUTION SPECIFICATIONS * * *                  $
+$                                                                       $
+$                     * * AERODYNAMIC CONDITIONS * *                    $
+$                                                                       $
+$        ALL COMBINATIONS OF MACH NUMBER AND REDUCED FREQUENCY LISTED   $
+$        ON THE MKAERO1 ENTRY AND ITS CONTINUATION WILL BE USED TO      $
+$        GENERATE GENERALIZED AERO FORCE MATRICES.  IF MORE THAN EIGHT  $
+$        MACH NOS OR REDUCED FREQUENCIES ARE REQUIRED A SECOND MKAERO1  $
+$        IS NECESSARY.                                                  $
+$                                                                       $
+MKAERO1 0.                                                              +MK
+$        K1     K2      K3      K4      K5      ETC
++MK     .001    .1      .2      .3      .4      .5      .6      .7
+MKAERO1 0.                                                              +MKA
++MKA    .8      .9      1.      1.1     1.3     1.5     2.      5.
+$                                                                       $
+$                                                                       $
+$                 * * VIBRATION SOLUTION PARAMETERS * *                 $
+$                                                                       $
+$        THE EIGR ENTRY SPECIFIES THE METHOD OF EXTRACTING THE EIGEN-   $
+$        SOLUTIONS OF THE STRUCTURE IN A VACUUM; IN THIS CASE THE       $
+$        MODIFIED GIVENS METHOD.  THREE MODES ARE DESIRED, NORMAL-      $
+$        IZED ON THE MAXIMUM DISPLACEMENTS.                             $
+$                                                                       $
+$       SID     METHOD  F1      F2              NO                      $
+EIGR    1       MGIV    0.      25.             3                       +EGR
+$       NORM    G       C                                               $
++EGR    MAX
+$                                                                       $
+$                 * * FLUTTER SOLUTION PARAMETERS * *                   $
+$                                                                       $
+$        THE FLUTTER ENTRY DEFINES THE METHOD OF SOLUTION, IDENTIFIES   $
+$        THE FLFACT ENTRIES THAT FOLL0W, SPECIFIES THE INTERPOLATION    $
+$        METHOD, THE NUMBER OF ROOTS DESIRED IN THE OUTPUT AND THE      $
+$        CRITERION FOR CONVERGENCE (DEFAULT IS 10-3).                   $
+$                                                                       $
+$       SID     METHOD  DENS    MACH    VEL     IMETH   NVALUE  EPS     $
+FLUTTER 3       PK      1       2       3       L       3
+$                                                                       $
+$        FLFACT ENTRIES ARE USED TO SPECIFY DENSITY RATIOS, MACH NOS    $
+$        AND REDUCED FREQUENCIES/VELOCITIES FOR FLUTTER ANALYSES.       $
+$        NEGATIVE VELOCITIES ARE SIGNALS TO COMPUTE AND PRINT EIGEN-    $
+$        VECTORS.                                                       $
+$                                                                       $
+$       SID     F1      F2      F3      F4      F5      F6      F7      $
+FLFACT  1       1.                                                      DENSITY
+FLFACT  2       0.                                                      MACH NO.
+FLFACT  3       20.     40.     60.     80.     100.    120.    140.    +FLF1
++FLF1   160.    170.    180.    190.    200.    210.    220.    -230.   +FLF2
++FLF2   -240.   260.    -280.   -290.   300.                            VELOCITY
+$                                                                       $
+$       SID     METHOD  DENS    MACH    RFREQ   IMETH   NVALUE  EPS     $
+FLUTTER 4       K       1       2       4       L       3
+$
+$               K1      K2      K3      K4
+FLFACT  4       0.20    0.18    0.16    0.14    0.12    0.10    0.08    +FL4
++FL4    0.06
+$                                                                       $
+$        THE EIGC ENTRY DEFINES DATA NEEDED TO PERFORM A COMPLEX        $
+$        EIGENVALUE ANALYSIS.  THIS ONE SPECIFIES THAT THE UPPER        $
+$        HESSENBERG METHOD BE USED TO EXTRACT COMPLEX EIGENVALUES       $
+$        AND THAT THE EIGENVECTORS BE NORMALIZED ON THEIR MAXIMUM       $
+$        COMPONENTS.  IF THEY WERE TO HAVE BEEN NORMALIZED ON A         $
+$        POINT THE GRID AND DOF COMPONENT WOULD HAVE BEEN REQUIRED.     $
+$        THE CONVERGENCE CRITERION DEFAULTS TO 1.0-4 FOR THE INVERSE    $
+$        POWER METHOD, TO 1.0-11 FOR THE DETERMINANT METHOD AND TO      $
+$        1.0-15 FOR THE HESSENBERG METHOD.  WHEN THE HESSENBERG         $
+$        METHOD IS SPECIFIED ALL ENTRIES ON THE CONTINUATION ENTRY      $
+$        EXCEPT THE NUMBER OF DESIRED ROOTS (NDL) ARE IGNORED.          $
+$
+$       SID     METHOD  NORM    G       C       E
+EIGC    20      HESS    MAX                                             +EC
+$       ALPHAA1 OMEGAA1 ALPHAB1 OMEGAB1 L1      NEL     NDL
++EC                                                     6
+$
+$        NOTE THE ABSENCE OF A PARAM,LMODES,N ENTRY TO STIPULATE THE    $
+$        NO. OF MODES TO BE USED IN THE ANALYSIS.  LMODES DEFAULTS      $
+$        TO ZERO BUT THE PROGRAM THEN INTERROGATES LFREQ AND HFREQ      $
+$        WHICH DEFINE THE FREQUENCY RANGE OF INTEREST; LFREQ DEFAULTS   $
+$        TO ZERO AND HFREQ DEFAULTS TO 1.0E30.  AS A RESULT ALL MODES   $
+$        ARE INCLUDED.                                                  $
+$                                                                       $
+ENDDATA
