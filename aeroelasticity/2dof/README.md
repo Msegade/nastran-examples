@@ -7,7 +7,9 @@ Airfoil properties:
 - Half Chord: $b=6\text{ft}$
 - Elastic axis position 40% chord: $a=-0.20$
 - Center of gravity position 45% chord:  $x_{\theta}=0.10$
-- Radius of gyration about elastic axis: $r_{\theta}$=0.5
+- Radius of gyration about elastic axis: $r_{\theta}=0.5$
+- Moment of inertia  about elastic axis: $i_{\theta}=3.0256\text{slug-ft}^2$
+- Bending stiffness: $K_{h}=134.47\text{lb/ft}$
 
 ## Files 
 
