@@ -6,6 +6,8 @@ Airfoil properties:
 
 - Half Chord: $b=6\text{ft}$
 - Elastic axis position 40% chord: $a=-0.20$
+- Leading edge position: $X_{LE} = -2.4$
+- Trailing edge position: $X_{TE} = 3.6$
 - Center of gravity position 45% chord:  $x_{\theta}=0.10$
 - Airfoil mass: $m=1.3447\text{slugs}$
 - Static unbalance about elastic axis: $s_{\theta}=-0.40342\text{slug-ft}$
