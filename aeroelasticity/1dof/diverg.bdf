@@ -1,0 +1,44 @@
+SOL  144
+CEND
+  ECHO    = NONE
+  CMETHOD  = 100
+  SVEC    = ALL  
+  diverg  = 100
+BEGIN BULK
+$ Center line elastic axis free to pitch
+GRID    100             0.      0.5     0.              12346
+$       EID     K       G1      C1      G2      C2      GE      S
+CELAS2  105       50.0  100     5
+                                                                       $
+$$$       EID     G       CID     M11     M21     M22     M31     M32
+$CONM1   110     100                                                     +CNM1
+$$       M33     M41     M42     M43     M44     M51     M52     M53
+$+CNM1   1.3447                                                   -.40342+CNM1A
+$$       M54     M55     M61     M62     M63     M64     M65     M66
+$+CNM1A          3.0256
+
+$ 
+$       ACSID    RCSID  REFC    REFB      REFS   
+AEROS                   6.      1.        6. 
+$CAERO1  1000    1000            1            1                  1       +CA1
+$$       X1      Y1      Z1      X12     X4      Y4      Z4      X43
+$+CA1    -3.0    0.      0.      6.      -3.0    1.      0.      6.
+$$       PID     CLA     LCLA    CIRC    LCIRC   DOC1    CAOC1   GAPOC1  +PAER
+$PAERO1  1000    
+$ Strip theory
+$       EID     PID     CP      NSPAN   LSPAN
+CAERO4  1000    1000            1                                       +CA1
+$       X1      Y1      Z1      X12     X4      Y4      Z4      X43
++CA1    -3.0    0.      0.      6.      -3.0    1.      0.      6.
+PAERO4  1000    0       0       2       13      0.      0.      0.
+AEFACT  13      0.0     1.0     -0.165  0.041   -0.335  0.320
+
+diverg, 100, 1, 0.0
+$       EID     CAERO   ID1     ID2     SETG    DZ      DTOR    CID
+SPLINE2 1201    1000    1000    1000    1100    0.      1.      0       +SP2
+$       DTHX    DTHY
++SP2    0.      0.
+$       SID     G1      G2      G3      ETC
+SET1    1100    100     
+EIGC,100,clan,max,,,,1
+ENDDATA
