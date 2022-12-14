@@ -30,8 +30,9 @@ $       EID     PID     CP      NSPAN   LSPAN
 CAERO4  1000    1000            1                                       +CA1
 $       X1      Y1      Z1      X12     X4      Y4      Z4      X43
 +CA1    -3.0    0.      0.      6.      -3.0    1.      0.      6.
-PAERO4  1000    0       0       2       13      0.      0.      0.
-AEFACT  13      0.0     1.0     -0.165  0.041   -0.335  0.320
+PAERO4  1000    0       0       0               0.      0.      0.
+$PAERO4  1000    0       0       2       13      0.      0.      0.
+$AEFACT  13      0.0     1.0     -0.165  0.041   -0.335  0.320
 
 diverg, 100, 1, 0.0
 $       EID     CAERO   ID1     ID2     SETG    DZ      DTOR    CID
