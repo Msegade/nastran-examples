@@ -1,0 +1,98 @@
+begin: data;
+	problem: initial value;
+end: data;
+
+begin: initial value;
+	initial time: 0.;
+	final time: 10.;
+	time step: 1.e-2;
+
+	max iterations: 10;
+	tolerance: 1.e-6;
+
+	derivatives coefficient: 1.e-6;
+end: initial value;
+
+begin: control data;
+	structural nodes:
+		+1	# ground
+		+1	# pendulum
+	;
+	rigid bodies:
+		+1	# pendulum
+	;
+	joints:
+		+1	# clamp
+		+1	# revolute hinge
+	;
+	gravity;
+    output results: netcdf;
+end: control data;
+
+set: integer GROUND = 10;
+set: integer PENDULUM = 20;
+
+set: real THETA_0 = 15*deg2rad;		# radian; initial angle
+set: real THETA_P_0 = 0.;		# radian/s; initial angular velocity
+set: real L = 5.;			# m; length
+
+reference: GROUND,
+	null,
+	eye,
+	null,
+	null;
+
+reference: PENDULUM + 1,
+	reference, GROUND, null,
+	reference, GROUND,
+		2, 0., 1., 0.,
+		1, cos(THETA_0), 0., sin(THETA_0),
+	reference, GROUND, null,
+	reference, GROUND, 0., THETA_P_0, 0.;
+
+reference: PENDULUM,
+	reference, PENDULUM + 1, 0., 0., -L,
+	reference, PENDULUM + 1, eye,
+	reference, PENDULUM + 1, null,
+	reference, PENDULUM + 1, null;
+
+begin: nodes;
+	structural: GROUND, static,
+		reference, GROUND, null,
+		reference, GROUND, eye,
+		reference, GROUND, null,
+		reference, GROUND, null,
+		output, no;
+
+	structural: PENDULUM, dynamic,
+		reference, PENDULUM, null,
+		reference, PENDULUM, eye,
+		reference, PENDULUM, null,
+		reference, PENDULUM, null;
+end: nodes;
+
+begin: elements;
+	body: PENDULUM,
+		PENDULUM,			# node label
+		10.,				# mass
+		reference, node, null,		# C.M. location
+		diag, 1.e-3, 1.e-3, 1.e-3;	# inertia tensor (wrt/ C.M.)
+
+	joint: GROUND, clamp,
+		GROUND, node, node;
+
+	joint: PENDULUM, revolute hinge,
+		GROUND,
+			reference, GROUND, null,
+			hinge, reference, GROUND,
+				3, 0., 1., 0.,
+				1, 1., 0., 0.,
+		PENDULUM,
+			reference, GROUND, null,
+			hinge, reference, GROUND,
+				3, 0., 1., 0.,
+				1, 1., 0., 0.;
+
+	gravity: 0., 0., -1., const, 9.81;
+end: elements;
+
