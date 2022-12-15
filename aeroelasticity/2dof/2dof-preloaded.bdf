@@ -1,0 +1,56 @@
+SOL  144
+CEND
+  ECHO    = NONE
+subcase 1 
+  SVEC    = ALL  
+  disp = all
+  trim = 1
+subcase 2 
+  method = 20
+  statsub = 1
+  analysis = modes
+BEGIN BULK
+trim, 1, 0.3, 100.0, anglea, 2.0 
+aestat, 501, anglea
+$aesurf, 502, wing, 0, 1000
+$aelist, 1000, 1000
+$ Center line elastic axis free to plunge and pitch
+GRID    100             0.      0.5     0.              1246
+$GRID    101             0.      1.0     0.
+$                                                                       $
+$ G2 blank refers to ground
+$       EID     K       G1      C1      G2      C2      GE      S
+CELAS2  103     134.47  100     3       
+CELAS2  105     1891.   100     5
+                                                                       $
+$$       EID     G       CID     M11     M21     M22     M31     M32
+CONM1   110     100                                                     +CNM1
+$       M33     M41     M42     M43     M44     M51     M52     M53
++CNM1   1.3447                                                   -.40342+CNM1A
+$       M54     M55     M61     M62     M63     M64     M65     M66
++CNM1A          3.0256
+
+$ 
+$       ACSID    RCSID  REFC    REFB      REFS   
+AEROS                   6.      1.        6. 
+$ Strip theory
+$       EID     PID     CP      NSPAN   LSPAN
+$CAERO4  1000    1000            1                                       +CA1
+$$       X1      Y1      Z1      X12     X4      Y4      Z4      X43
+$+CA1    -2.4    0.      0.      6.      -2.4    1.      0.      6.
+$$       PID     CLA     LCLA    CIRC    LCIRC   DOC1    CAOC1   GAPOC1  +PAER
+$PAERO4  1000    0       0       0               0.      0.      0.
+CAERO1  1000    1000            1       1                       1       +CA1
+$       X1      Y1      Z1      X12     X4      Y4      Z4      X43
++CA1    -2.4    0.      0.      6.      -2.4    1.      0.      6.
+$       PID     CLA     LCLA    CIRC    LCIRC   DOC1    CAOC1   GAPOC1  +PAER
+PAERO1  1000    
+
+$       EID     CAERO   ID1     ID2     SETG    DZ      DTOR    CID
+SPLINE2 1201    1000    1000    1000    1100    0.      1.      0       +SP2
+$       DTHX    DTHY
++SP2    0.      0.
+$       SID     G1      G2      G3      ETC
+SET1    1100    100     
+eigrl, 20,,,2 
+ENDDATA
