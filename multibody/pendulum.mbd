@@ -14,6 +14,7 @@ begin: initial value;
 end: initial value;
 
 begin: control data;
+    # Se podría poned 2, es para mejorar lectura
 	structural nodes:
 		+1	# ground
 		+1	# pendulum
@@ -36,6 +37,10 @@ set: real THETA_0 = 15*deg2rad;		# radian; initial angle
 set: real THETA_P_0 = 0.;		# radian/s; initial angular velocity
 set: real L = 5.;			# m; length
 
+# 1st: origin
+# 2nd: orientation
+# 3rd: velocity
+# 4th: angular velocity
 reference: GROUND,
 	null,
 	eye,
@@ -44,6 +49,12 @@ reference: GROUND,
 
 reference: PENDULUM + 1,
 	reference, GROUND, null,
+    # Orientation matrix
+    # 1, coordenadas vector 1
+    # 2, coordenadas vector 2
+    # El vector 3 es el producto vectorial del 1 y el 2
+    # Giro en el plano x,z
+    # Velocidad angular en eje y
 	reference, GROUND,
 		2, 0., 1., 0.,
 		1, cos(THETA_0), 0., sin(THETA_0),
@@ -64,6 +75,11 @@ begin: nodes;
 		reference, GROUND, null,
 		output, no;
 
+    # Dynamic: kinematic + dynamic degrees of freedom
+    # 1st: position respect to the global inertial frame
+    # 2st: orientation
+    # 3rd: Initial velocity
+    # 4th: Initial angular velocity
 	structural: PENDULUM, dynamic,
 		reference, PENDULUM, null,
 		reference, PENDULUM, eye,
@@ -72,6 +88,7 @@ begin: nodes;
 end: nodes;
 
 begin: elements;
+    # Label, label of attached node, mass, cm, tensor
 	body: PENDULUM,
 		PENDULUM,			# node label
 		10.,				# mass
